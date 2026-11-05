@@ -273,6 +273,10 @@ button { font: inherit; color: inherit; }
 .hero3d__info-cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: clamp(8px, calc(var(--card) * 0.031), 10.5px); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .hero3d__info-cta .icon { width: 14px; height: 14px; }
 .hero3d__reflect { transition: opacity .4s ease; }
+/* Mouse: hover turns the painting over. Touch: the first tap on the front painting adds .is-flipped (hero-3d.js). */
+.hero3d__card.is-flipped .hero3d__frame { transform: rotateY(180deg); }
+.hero3d__card.is-flipped .hero3d__reflect { opacity: 0; }
+.hero3d__card.is-flipped .hero3d__info { visibility: visible; transition-delay: 0s; }
 @media (hover: hover) {
 	.hero3d__stage:not(.is-dragging) .hero3d__card:hover .hero3d__frame { transform: rotateY(180deg); }
 	.hero3d__stage:not(.is-dragging) .hero3d__card:hover .hero3d__reflect { opacity: 0; }
@@ -280,7 +284,8 @@ button { font: inherit; color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) { .hero3d__frame { transition: none; } }
 /* Small paintings (short or narrow screens) only have room for the title, artist and price. */
-@container (max-width: 236px) { .hero3d__info-specs, .hero3d__info-cta { display: none; } }
+@container (max-width: 200px) { .hero3d__info-cta { display: none; } }
+@container (max-width: 140px) { .hero3d__info-specs { display: none; } }
 
 .hero3d__floor {
 	position: absolute; left: 0; right: 0; bottom: 0; height: 30%; pointer-events: none;

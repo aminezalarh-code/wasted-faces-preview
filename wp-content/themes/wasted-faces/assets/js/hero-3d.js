@@ -68,6 +68,7 @@
 		var idx = mod(Math.round(pos), n);
 		if (idx !== active) {
 			active = idx;
+			unflip();
 			updateCaption();
 		}
 	}
@@ -89,7 +90,7 @@
 	function tick(now) {
 		if (!visible) { running = false; return; }
 
-		if (!reduceMotion && !dragging && now - lastInteract > AUTO_DELAY && !hovering && !document.hidden) {
+		if (!reduceMotion && !dragging && now - lastInteract > AUTO_DELAY && !hovering && !document.hidden && !ring.querySelector('.is-flipped')) {
 			target += 1;
 			lastInteract = now;
 		}
@@ -126,8 +127,10 @@
 	/* ---------------- Pointer: drag / swipe ---------------- */
 
 	var dragging = false, moved = 0, startX = 0, startPos = 0, lastX = 0, lastT = 0, vel = 0, hovering = false;
+	var lastPointer = 'mouse';
 
 	stage.addEventListener('pointerdown', function (e) {
+		lastPointer = e.pointerType;
 		if (e.button !== undefined && e.button !== 0) return;
 		dragging = true;
 		moved = 0;
@@ -170,6 +173,8 @@
 	window.addEventListener('pointercancel', endDrag);
 
 	// A click after a drag must not open the painting; a click on a side painting turns to it.
+	// Touch screens have no hover, so the first tap on the front painting turns it over to show
+	// its details, and a second tap opens it.
 	ring.addEventListener('click', function (e) {
 		var card = e.target.closest('[data-card]');
 		if (!card) return;
@@ -178,7 +183,18 @@
 		if (i !== active) {
 			e.preventDefault();
 			goTo(i);
+		} else if (lastPointer !== 'mouse' && !card.classList.contains('is-flipped')) {
+			e.preventDefault();
+			card.classList.add('is-flipped');
+			lastInteract = performance.now();
 		}
+	});
+
+	function unflip() {
+		cards.forEach(function (card) { card.classList.remove('is-flipped'); });
+	}
+	document.addEventListener('click', function (e) {
+		if (!e.target.closest('[data-card]')) unflip();
 	});
 
 	ring.addEventListener('dragstart', function (e) { e.preventDefault(); });
