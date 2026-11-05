@@ -239,6 +239,41 @@ button { font: inherit; color: inherit; }
 	mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 80%);
 	pointer-events: none;
 }
+/* Artwork details shown while the mouse is over a painting. */
+.hero3d__info {
+	position: absolute; inset: 7px; z-index: 1; pointer-events: none;
+	display: flex; flex-direction: column; justify-content: flex-end; gap: calc(var(--card) * 0.012);
+	padding: calc(var(--card) * 0.07);
+	background: linear-gradient(to top, rgba(8, 7, 5, 0.96) 0%, rgba(8, 7, 5, 0.86) 55%, rgba(8, 7, 5, 0.35) 100%);
+	color: var(--text, #f2ede4); text-align: left;
+	opacity: 0; transform: translateY(10px);
+	transition: opacity .3s ease, transform .3s ease;
+}
+.hero3d__info-no { font-family: var(--mono); font-size: clamp(9px, calc(var(--card) * 0.034), 11px); letter-spacing: .14em; color: var(--gold); }
+.hero3d__info-title { font-size: clamp(16px, calc(var(--card) * 0.075), 26px); line-height: 1.1; }
+.hero3d__info-artist { font-style: italic; color: var(--gold-2); font-size: clamp(12px, calc(var(--card) * 0.048), 16px); }
+.hero3d__info-specs {
+	display: grid; gap: 3px; margin-top: calc(var(--card) * 0.025); padding-top: calc(var(--card) * 0.025);
+	border-top: 1px solid rgba(201, 164, 92, 0.3);
+	font-family: var(--mono); font-size: clamp(8px, calc(var(--card) * 0.031), 10.5px); letter-spacing: .08em; text-transform: uppercase;
+}
+.hero3d__info-row { display: flex; justify-content: space-between; gap: 12px; }
+.hero3d__info-row > span:first-child { color: var(--faint, #7d766a); }
+.hero3d__info-row > span:last-child { text-align: right; }
+.hero3d__info-price { margin-top: calc(var(--card) * 0.02); color: var(--gold); font-size: clamp(12px, calc(var(--card) * 0.048), 16px); }
+.hero3d__info-cta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: clamp(8px, calc(var(--card) * 0.031), 10.5px); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero3d__info-cta .icon { width: 14px; height: 14px; }
+.hero3d__img { transition: transform .4s ease, filter .4s ease; }
+@media (hover: hover) {
+	.hero3d__stage:not(.is-dragging) .hero3d__card:hover .hero3d__info { opacity: 1; transform: none; }
+	.hero3d__stage:not(.is-dragging) .hero3d__card:hover .hero3d__img { transform: scale(1.04); filter: blur(1px); }
+	.hero3d__stage:not(.is-dragging) .hero3d__card:hover .hero3d__frame::after { background: transparent; }
+}
+/* Small paintings (short or narrow screens) only have room for the title, artist and price. */
+.hero3d__card { container-type: inline-size; }
+.hero3d__info { overflow: hidden; }
+@container (max-width: 250px) { .hero3d__info-specs, .hero3d__info-cta { display: none; } }
+
 .hero3d__floor {
 	position: absolute; left: 0; right: 0; bottom: 0; height: 30%; pointer-events: none;
 	background: linear-gradient(to bottom, transparent, var(--bg) 85%);
