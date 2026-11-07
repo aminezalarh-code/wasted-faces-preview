@@ -177,7 +177,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- 3D Hero ---------- */
 .hero3d {
-	position: relative; height: 100svh; min-height: 600px; padding-top: calc(var(--header-h) + 2vh);
+	position: relative; min-height: 100svh; padding-top: calc(var(--header-h) + 2vh);
 	display: flex; flex-direction: column; overflow: hidden; isolation: isolate;
 	background: radial-gradient(120% 70% at 50% 40%, #1a1712 0%, var(--bg) 62%);
 }
@@ -196,9 +196,17 @@ button { font: inherit; color: inherit; }
 .hero3d__text { max-width: 520px; margin: 10px auto 0; color: var(--muted); font-size: 18px; font-style: italic; }
 @media (max-height: 760px) { .hero3d__text { display: none; } }
 
+/* Two rings stacked: the Wasted Faces collection, then the master collection. */
+.hero3d__rings { display: flex; flex-direction: column; gap: 4px; margin-top: 2.5vh; }
+.hero3d__rings .hero3d__bar { margin-top: -34px; }
+.hero3d__row { position: relative; }
+.hero3d__label {
+	position: relative; z-index: 2; margin: 0 0 4px; text-align: center;
+	font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+}
 .hero3d__stage {
-	--card: clamp(150px, min(23vw, 34vh), 330px);
-	position: relative; flex: 1 1 auto; min-height: calc(var(--card) * 1.25);
+	--card: clamp(120px, min(15vw, 20vh), 240px);
+	position: relative; min-height: calc(var(--card) * 1.32);
 	perspective: 1700px; perspective-origin: 50% 40%;
 	display: grid; place-items: center;
 	touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
@@ -297,14 +305,15 @@ button { font: inherit; color: inherit; }
 	display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 12px 24px;
 	padding-bottom: 8px; margin-top: -20px;
 }
-.hero3d__caption { display: flex; flex-direction: column; min-height: 92px; }
+.hero3d__caption { display: flex; flex-direction: column; min-height: 66px; }
 .hero3d__no { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--gold); min-height: 1.4em; }
-.hero3d__work { font-size: clamp(26px, 3vw, 38px); line-height: 1.1; text-decoration: none; }
+.hero3d__work { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.1; text-decoration: none; }
 .hero3d__artist { font-style: italic; color: var(--gold-2); }
 .hero3d__meta { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 .hero3d__controls { display: flex; align-items: center; gap: 16px; }
 .hero3d__count { font-size: 12px; color: var(--muted); min-width: 64px; text-align: center; }
-.hero3d__hint { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; font-size: 10px; color: var(--faint); margin: 0; }
+.hero3d__hint { display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 10px; color: var(--faint); margin: 0; }
+.hero3d__hint { margin-block: 14px 4px; }
 .hero3d__hint .icon { width: 16px; height: 16px; color: var(--gold); animation: wf-swipe 2.4s ease-in-out infinite; }
 .hero3d__cta { text-align: center; padding-block: 4px 16px; position: relative; z-index: 2; }
 
@@ -312,10 +321,12 @@ button { font: inherit; color: inherit; }
 
 @media (max-width: 640px) {
 	.hero3d { height: auto; min-height: 100svh; }
-	.hero3d__stage { --card: min(58vw, 36vh); perspective: 1100px; }
+	.hero3d__stage { --card: min(46vw, 27vh); perspective: 1100px; }
 	.hero3d__bar { grid-template-columns: 1fr; margin-top: -10px; }
 	.hero3d__controls { justify-content: space-between; }
-	.hero3d__caption { min-height: 84px; }
+	.hero3d__caption { min-height: 72px; }
+	.hero3d__rings .hero3d__bar { margin-top: -4px; }
+	.hero3d__rings { gap: 18px; }
 }
 
 /* ---------- Sections ---------- */
