@@ -135,7 +135,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 600px) { .admin-bar .site-header { top: 0; } }
 .site-header__inner { height: 100%; max-width: 1440px; margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
-.brand__mark .icon { width: 28px; height: 28px; color: var(--gold); }
+.brand__mark { display: block; height: 40px; width: auto; }
 .brand__name { font-size: 13px; letter-spacing: 0.22em; }
 .brand__logo { max-height: 44px; width: auto; }
 
